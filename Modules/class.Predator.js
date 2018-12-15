@@ -1,4 +1,4 @@
-var  LivingCreature = require("./class.LivingCreature");
+var  LivingCreature = require("./class.LivingCreature"); 
 module.exports = class Predator {
     constructor(x, y, index) {
         this.x = x;
