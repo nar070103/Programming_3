@@ -9,6 +9,11 @@ app.get('/', function (req, res) {
 });
 server.listen(3000);
 
+var Grass = require("./modules/class.grass.js");
+var GrassEater = require("./modules/class.grassEater");
+var Predator = require("./modules/class.Predator");
+var Ell = require("./modules/class.Ell");
+var LivingCreature = require("./modules/class.LivingCreature");
 
 var time = frameRate(5);
 
@@ -50,7 +55,7 @@ function draw() {
                 matrix[y][x].eat1();
             }
         }
-    }
+    
 }
 
 setInterval(draw, time)
