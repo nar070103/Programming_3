@@ -1,4 +1,9 @@
-var  LivingCreature = require("./class.LivingCreature"); 
+function random(arr){
+    var random = Math.floor(Math.random() *arr.length)
+    return arr[random];
+}
+var stat = require("./statistic.js");
+
 module.exports = class Predator {
     constructor(x, y, index) {
         this.x = x;
@@ -38,7 +43,7 @@ module.exports = class Predator {
         ];
     }
 
-    chooseCell(num) {
+    chooseCell(num,matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.directions) {
@@ -56,9 +61,9 @@ module.exports = class Predator {
         return found;
     }
 
-    move() {
+    move(matrix) {
         if (this.acted == false) {
-            var newCell = random(this.chooseCell(0));
+            var newCell = random(this.chooseCell(0,matrix));
 
             if (newCell) {
                 var newX = newCell[0];
@@ -73,15 +78,15 @@ module.exports = class Predator {
             }
 
         }
-
+        else this.acted = false;
         if (this.energy <= 0) {
-            this.die();
+            this.die(matrix);
         }
         this.energy--;
     }
 
-    mul() {
-        var newCell = random(this.chooseCell(0));
+    mul(matrix) {
+        var newCell = random(this.chooseCell(0,matrix));
 
         if (newCell && this.energy >= 8) {
             var newX = newCell[0];
@@ -89,11 +94,13 @@ module.exports = class Predator {
 
             matrix[newY][newX] = new Predator(newX, newY, 3);
             this.energy = 0;
+            stat.Predator.current++;
+            stat.Predator.born++;
         }
     }
 
-    eat() {
-        var newCell = random(this.chooseCell(2));
+    eat(matrix) {
+        var newCell = random(this.chooseCell(2,matrix));
 
         if (newCell) {
             var newX = newCell[0];
@@ -106,17 +113,24 @@ module.exports = class Predator {
             this.y = newY;
 
             this.energy++;
+            stat.grassEater.dead++;
+            stat.grassEater.current--;
             if (this.energy >= 12) {
-                this.mul();
+                this.mul(matrix);
                 this.energy = 3;
             }
+            this.acted = true;
         }
         else {
-            this.move();
+            this.move(matrix);
+            this.acted = false;
         }
+        
     }
-    die() {
+    die(matrix) {
         matrix[this.y][this.x] = 0;
+        stat.Predator.dead++;
+        stat.Predator.current--;
 
     }
 }

@@ -1,3 +1,8 @@
+function random(arr){
+    var random = Math.floor(Math.random() *arr.length)
+    return arr[random];
+}
+var stat = require("./statistic.js");
     module.exports = class Ell {
     constructor(x, y, index) {
         this.x = x;
@@ -7,7 +12,7 @@
         this.directions = [];
 
     }
-    chooseCell(num) {
+    chooseCell(num,matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.directions) {
@@ -24,7 +29,7 @@
         }
         return found;
     }
-    getNewCoordinates() {
+    getNewCoordinates(matrix) {
         for (var yy = 0; yy < matrix.length; yy++) {
             for (var xx = 0; xx < matrix[yy].length; xx++) {
                 if (xx == yy) {
@@ -34,9 +39,9 @@
             }
         }
     }
-    move() {
+    move(matrix) {
         if (this.acted == false) {
-            var newCell = random(this.chooseCell(0));
+            var newCell = random(this.chooseCell(0,matrix));
 
             if (newCell) {
                 var newX = newCell[0];
@@ -49,10 +54,11 @@
                 this.y = newY;
                 this.acted = true;
             }
+            else this.acted = false;
         }
     }
-    eat() {
-        var newCell = random(this.chooseCell(1));
+    eat(matrix) {
+        var newCell = random(this.chooseCell(1,matrix));
 
         if (newCell) {
             var newX = newCell[0];
@@ -62,15 +68,19 @@
             matrix[this.y][this.x] = 0;
             this.x = newX;
             this.y = newY;
+            this.acted = true;
+            stat.Grass.dead++;
+            stat.Grass.current--;
         }
         else {
-            this.move();
+            this.move(matrix);
+            this.acted = false;
             }
     }
-    eat1() {
-        var newCell = random(this.chooseCell(2));
+    eat1(matrix) {
+        var newCell = random(this.chooseCell(2,matrix));
 
-        if (newCell) {
+        if (newCell,matrix) {
             var newX = newCell[0];
             var newY = newCell[1];
 
@@ -78,15 +88,19 @@
             matrix[this.y][this.x] = 0;
             this.x = newX;
             this.y = newY;
+            this.acted = true;
+            stat.GrassEater.dead++;
+            stat.GrassEater.current--;
         }
         else {
-            this.eat();
+            this.eat(matrix);
+            this.acted = false;
         }
     }
-    eat2() {
-        var newCell = random(this.chooseCell(3));
+    eat2(matrix) {
+        var newCell = random(this.chooseCell(3,matrix));
 
-        if (newCell) {
+        if (newCell,matrix) {
             var newX = newCell[0];
             var newY = newCell[1];
 
@@ -94,9 +108,12 @@
             matrix[this.y][this.x] = 0;
             this.x = newX;
             this.y = newY;
+            stat.Predator.dead++;
+            stat.Predator.current--;
         }
         else {
-            this.eat1();
+            this.eat1(matrix);
+            this.acted = false;
         }
     }
 
