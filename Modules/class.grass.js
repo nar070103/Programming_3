@@ -3,7 +3,7 @@ function random(arr){
     var random = Math.floor(Math.random() *arr.length)
     return arr[random];
 }
-var stat = require("./statistic.js");
+// var stat = require("./statistic.js");
 module.exports = class Grass extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
