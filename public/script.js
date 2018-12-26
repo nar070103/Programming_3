@@ -1,6 +1,7 @@
 var matrix = [];
 var socket;
 var stat;
+var qanak;
 var side = 10;
 function setup() {
 
@@ -19,6 +20,10 @@ function setup() {
         socket.on("stats", function (stats) {
             stat = stats;
             return stat;
+        })
+        socket.on("qanak", function (qanakner) {
+            qanak = qanakner;
+            return qanak;
         })
     });
     noLoop();
@@ -49,7 +54,7 @@ function draw() {
         fill("green");
         textSize(32);
         text(str(stat.Grass.born), matrix[0].length * side + 300, 100);
-        
+
         fill("green");
         text(str(stat.Grass.current), matrix[0].length * side + 700, 100);
 
@@ -77,20 +82,30 @@ function draw() {
     }
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x].index == 1) {
-                if (matrix[y][x].nexac == true) {
+            if (matrix[y][x] == 0) {
+                fill("#acacac");
+                rect(x * side, y * side, side, side);
+            }
+            else if (matrix[y][x].index == 1) {
+                if (matrix[y][x].nexac == true && qanak < 1000) 
+                {
                     fill("#7A8613");
                     rect(x * side, y * side, side, side);
                 }
-                else if (matrix[y][x].nexac == false) {
+                else if(matrix[y][x].nexac == false && qanak < 1000)
+                {
                     fill("green");
                     rect(x * side, y * side, side, side);
                 }
-            }
-            else if (matrix[y][x] == 0) {
-                fill("#acacac");
-                rect(x * side, y * side, side, side);
-
+                else if ((matrix[y][x].nexac == true || matrix[y][x].nexac == false) && qanak >= 1000 ) 
+                {
+                    fill("white");
+                    rect(x * side, y * side, side, side);
+                }
+                if (qanak == 2000) 
+                {
+                    qanak = 0;
+                }
             }
             else if (matrix[y][x].index == 2) {
                 fill("yellow");
@@ -106,4 +121,5 @@ function draw() {
             }
         }
     }
+    qanak += 50;
 }

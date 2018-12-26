@@ -1,5 +1,5 @@
-function random(arr){
-    var random = Math.floor(Math.random() *arr.length)
+function random(arr) {
+    var random = Math.floor(Math.random() * arr.length)
     return arr[random];
 }
 var GrassEater = require('./class.grassEater.js');
@@ -41,7 +41,7 @@ module.exports = class Predator {
         ];
     }
 
-    chooseCell(num,matrix) {
+    chooseCell(num, matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.directions) {
@@ -61,7 +61,7 @@ module.exports = class Predator {
 
     move(matrix) {
         if (this.acted == false) {
-            var newCell = random(this.chooseCell(0,matrix));
+            var newCell = random(this.chooseCell(0, matrix));
 
             if (newCell) {
                 var newX = newCell[0];
@@ -84,7 +84,7 @@ module.exports = class Predator {
     }
 
     mul(matrix) {
-        var newCell = random(this.chooseCell(0,matrix));
+        var newCell = random(this.chooseCell(0, matrix));
 
         if (newCell && this.energy >= 8) {
             var newX = newCell[0];
@@ -98,7 +98,7 @@ module.exports = class Predator {
     }
 
     eat(matrix) {
-        var newCell = random(this.chooseCell(2,matrix));
+        var newCell = random(this.chooseCell(2, matrix));
 
         if (newCell) {
             var newX = newCell[0];
@@ -123,7 +123,7 @@ module.exports = class Predator {
             this.move(matrix);
             this.acted = false;
         }
-        
+
     }
     die(matrix) {
         matrix[this.y][this.x] = 0;
