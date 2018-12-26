@@ -1,9 +1,9 @@
-var  LivingCreature = require("./class.LivingCreature");
 function random(arr){
     var random = Math.floor(Math.random() *arr.length)
     return arr[random];
 }
-// var stat = require("./statistic.js");
+var LivingCreature = require("./class.LivingCreature");
+var st = require("./statistic.js");
 module.exports = class Grass extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
@@ -22,8 +22,8 @@ module.exports = class Grass extends LivingCreature {
 
             matrix[newY][newX] = new Grass(newX, newY, 1);
             this.multiply = 0;
-            stat.Grass.born++;
-            stat.Grass.current++;
+            st.Grass.born++;
+            st.Grass.current++;
         }
     }
 

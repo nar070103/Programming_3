@@ -1,10 +1,9 @@
 var  LivingCreature = require("./class.LivingCreature");
-// var stat = require("./statistic.js");
 function random(arr){
     var random = Math.floor(Math.random() *arr.length)
     return arr[random];
 }
-// var stat = require("./statistic.js");
+var st = require("./statistic.js");
 module.exports = class GrassEater extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
@@ -36,8 +35,8 @@ module.exports = class GrassEater extends LivingCreature {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = new GrassEater(newX, newY, 2);
-            stat.GrassEater.current++;
-            stat.GrassEater.born++;
+            st.GrassEater.current++;
+            st.GrassEater.born++;
 
         }
     }
@@ -71,10 +70,10 @@ module.exports = class GrassEater extends LivingCreature {
                 if (matrix[newY][newX].nexac == true) {
                     matrix[newY][newX] = 0;
                     this.die(matrix);
-                    stat.GrassEater.dead++;
-                    stat.GrassEater.current--;
-                    stat.Grass.dead++;
-                    stat.Grass.current--;
+                    st.GrassEater.dead++;
+                    st.GrassEater.current--;
+                    st.Grass.dead++;
+                    st.Grass.current--;
                     return;
                 }
                 else if (matrix[newY][newX].nexac == false) {
@@ -83,8 +82,8 @@ module.exports = class GrassEater extends LivingCreature {
                     this.x = newX;
                     this.y = newY;
                     this.energy++;
-                    stat.Grass.dead++;
-                    stat.Grass.current--;
+                    st.Grass.dead++;
+                    st.Grass.current--;
                     if (this.energy >= 12) {
                         this.mul(matrix);
                         this.energy = 3;
@@ -101,7 +100,7 @@ module.exports = class GrassEater extends LivingCreature {
     }
     die(matrix) {
         matrix[this.y][this.x] = 0;
-        stat.GrassEater.dead++;
-        stat.GrassEater.current--;
+        st.GrassEater.dead++;
+        st.GrassEater.current--;
     }
 }

@@ -1,62 +1,60 @@
-var Grass = require("./class.grass");
-var GrassEater = require("./class.GrassEater");
-var Predator = require("./class.Predator");
+var Grass = require('./class.grass.js');
+var GrassEater = require('./class.grassEater.js');
+var Predator = require('./class.Predator.js');
+var st = require("./statistic.js");
 
-
-
-Grass.born = 0;
-Grass.dead = 0;
-Grass.current = 0;
-
-GrassEater.born = 0;
-GrassEater.dead = 0;
-GrassEater.current = 0;
-
-
-Predator.born = 0;
-Predator.dead = 0;
-Predator.current = 0;
-
-var m = 80;
-var n = 80;
 var matrix = [];
-// var arr = [];
-// var side = 10;
-function random(arr){
-    var random = Math.floor(Math.random() *arr.length)
-    return arr[random];
-}
+var xotQanak = 4000;
+var xotakerQanak = 1800;
+var gishatichQanak = 400;
 
+var n = 80;
+var m = 80;
 for (var y = 0; y < n; y++) {
     matrix[y] = [];
     for (var x = 0; x < m; x++) {
-        matrix[y][x] = random([0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3]); 
+
+        matrix[y][x] = 0;
+    }
+}
+var k = 0;
+
+while (k < xotQanak) {
+    var x = Math.floor(Math.random() * (matrix[0].length));
+    var y = Math.floor(Math.random() * (matrix.length));
+
+
+    if (matrix[y][x] == 0) {
+        matrix[y][x] = new Grass(x, y, 1);
+        k++;
+        st.Grass.born++;
+        st.Grass.current++;
     }
 }
 
-function random(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+var p = 0;
+
+while (p < xotakerQanak) {
+    var x = Math.floor(Math.random() * (matrix[0].length));
+    var y = Math.floor(Math.random() * (matrix.length));
+
+    if (matrix[y][x] == 0) {
+        matrix[y][x] = new GrassEater(x, y, 2);
+        p++;
+        st.GrassEater.born++;
+        st.GrassEater.current++;
+    }
 }
+var a = 0;
+while (a < gishatichQanak) {
+    var x = Math.floor(Math.random() * (matrix[0].length));
+    var y = Math.floor(Math.random() * (matrix.length));
 
-
-
-for (var y = 0; y < matrix.length; y++) {
-    for (var x = 0; x < matrix[y].length; x++) {
-        if (matrix[y][x] == 1) {
-            matrix[y][x] = new Grass(x, y, 1);
-            Grass.born++;
-            Grass.current++;
-        }
-        if (matrix[y][x] == 2) {
-            matrix[y][x] = new GrassEater(x, y, 2);
-            GrassEater.born++;
-            GrassEater.current++;
-        }
-        if (matrix[y][x] == 3) {
-            matrix[y][x] = new Predator(x, y, 3);
-            Predator.born++;
-            Predator.current++;
-        }
+    if (matrix[y][x] == 0) {
+        matrix[y][x] = new Predator(x, y, 3);
+        a++;
+        st.Predator.born++;
+        st.Predator.current++;
     }
 }
 
