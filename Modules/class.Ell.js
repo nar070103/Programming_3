@@ -2,7 +2,8 @@ function random(arr){
     var random = Math.floor(Math.random() *arr.length)
     return arr[random];
 }
-// var stat = require("./statistic.js");
+var GrassEater = require('./class.grassEater.js');
+var Grass = require('./class.grass.js');
     module.exports = class Ell {
     constructor(x, y, index) {
         this.x = x;
@@ -69,8 +70,8 @@ function random(arr){
             this.x = newX;
             this.y = newY;
             this.acted = true;
-            stat.Grass.dead++;
-            stat.Grass.current--;
+            Grass.dead++;
+            Grass.current--;
         }
         else {
             this.move(matrix);
@@ -89,8 +90,8 @@ function random(arr){
             this.x = newX;
             this.y = newY;
             this.acted = true;
-            stat.GrassEater.dead++;
-            stat.GrassEater.current--;
+            GrassEater.dead++;
+            GrassEater.current--;
         }
         else {
             this.eat(matrix);
@@ -108,8 +109,8 @@ function random(arr){
             matrix[this.y][this.x] = 0;
             this.x = newX;
             this.y = newY;
-            stat.Predator.dead++;
-            stat.Predator.current--;
+            Predator.dead++;
+            Predator.current--;
         }
         else {
             this.eat1(matrix);

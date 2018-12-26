@@ -1,11 +1,10 @@
 var Grass = require('./class.grass.js');
 var GrassEater = require('./class.grassEater.js');
 var Predator = require('./class.Predator.js');
-var st = require("./statistic.js");
 
 var matrix = [];
 var xotQanak = 4000;
-var xotakerQanak = 1800;
+var xotakerQanak = 2000;
 var gishatichQanak = 400;
 
 var n = 80;
@@ -27,8 +26,8 @@ while (k < xotQanak) {
     if (matrix[y][x] == 0) {
         matrix[y][x] = new Grass(x, y, 1);
         k++;
-        st.Grass.born++;
-        st.Grass.current++;
+        Grass.born++;
+        Grass.current++;
     }
 }
 
@@ -41,8 +40,8 @@ while (p < xotakerQanak) {
     if (matrix[y][x] == 0) {
         matrix[y][x] = new GrassEater(x, y, 2);
         p++;
-        st.GrassEater.born++;
-        st.GrassEater.current++;
+        GrassEater.born++;
+        GrassEater.current++;
     }
 }
 var a = 0;
@@ -53,8 +52,8 @@ while (a < gishatichQanak) {
     if (matrix[y][x] == 0) {
         matrix[y][x] = new Predator(x, y, 3);
         a++;
-        st.Predator.born++;
-        st.Predator.current++;
+        Predator.born++;
+        Predator.current++;
     }
 }
 

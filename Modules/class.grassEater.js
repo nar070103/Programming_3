@@ -3,7 +3,7 @@ function random(arr){
     var random = Math.floor(Math.random() *arr.length)
     return arr[random];
 }
-var st = require("./statistic.js");
+var Grass = require('./class.grass.js');
 module.exports = class GrassEater extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
@@ -35,8 +35,8 @@ module.exports = class GrassEater extends LivingCreature {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = new GrassEater(newX, newY, 2);
-            st.GrassEater.current++;
-            st.GrassEater.born++;
+            GrassEater.current++;
+            GrassEater.born++;
 
         }
     }
@@ -69,11 +69,9 @@ module.exports = class GrassEater extends LivingCreature {
 
                 if (matrix[newY][newX].nexac == true) {
                     matrix[newY][newX] = 0;
-                    this.die(matrix);
-                    st.GrassEater.dead++;
-                    st.GrassEater.current--;
-                    st.Grass.dead++;
-                    st.Grass.current--;
+                    this.die(matrix); 
+                    Grass.dead++;
+                    Grass.current--;
                     return;
                 }
                 else if (matrix[newY][newX].nexac == false) {
@@ -82,8 +80,8 @@ module.exports = class GrassEater extends LivingCreature {
                     this.x = newX;
                     this.y = newY;
                     this.energy++;
-                    st.Grass.dead++;
-                    st.Grass.current--;
+                    Grass.dead++;
+                    Grass.current--;
                     if (this.energy >= 12) {
                         this.mul(matrix);
                         this.energy = 3;
@@ -100,7 +98,7 @@ module.exports = class GrassEater extends LivingCreature {
     }
     die(matrix) {
         matrix[this.y][this.x] = 0;
-        st.GrassEater.dead++;
-        st.GrassEater.current--;
+        GrassEater.dead++;
+        GrassEater.current--;
     }
 }

@@ -2,7 +2,7 @@ function random(arr){
     var random = Math.floor(Math.random() *arr.length)
     return arr[random];
 }
-var st = require("./statistic.js");
+var GrassEater = require('./class.grassEater.js');
 module.exports = class Predator {
     constructor(x, y, index) {
         this.x = x;
@@ -12,7 +12,6 @@ module.exports = class Predator {
         this.acted = false;
 
     }
-
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -93,8 +92,8 @@ module.exports = class Predator {
 
             matrix[newY][newX] = new Predator(newX, newY, 3);
             this.energy = 0;
-            st.Predator.current++;
-            st.Predator.born++;
+            Predator.current++;
+            Predator.born++;
         }
     }
 
@@ -112,8 +111,8 @@ module.exports = class Predator {
             this.y = newY;
 
             this.energy++;
-            st.GrassEater.dead++;
-            st.GrassEater.current--;
+            GrassEater.dead++;
+            GrassEater.current--;
             if (this.energy >= 12) {
                 this.mul(matrix);
                 this.energy = 3;
@@ -128,8 +127,8 @@ module.exports = class Predator {
     }
     die(matrix) {
         matrix[this.y][this.x] = 0;
-        st.Predator.dead++;
-        st.Predator.current--;
+        Predator.dead++;
+        Predator.current--;
 
     }
 }
