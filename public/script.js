@@ -80,46 +80,52 @@ function draw() {
         fill("red");
         text(str(stat.Predator.dead), matrix[0].length * side + 500, 300);
     }
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 0) {
-                fill("#acacac");
-                rect(x * side, y * side, side, side);
-            }
-            else if (matrix[y][x].index == 1) {
-                if (matrix[y][x].nexac == true && qanak < 1000) 
-                {
-                    fill("#7A8613");
-                    rect(x * side, y * side, side, side);
+            if (matrix[y][x].index == 1) {
+
+                if (matrix[y][x].nexac == true) {
+                    if (qanak < 1000) {
+                        fill("#7A8613");
+                        rect(x * side, y * side, side, side);
+                    }
+                    else if (qanak >= 1000) {
+                        fill("white");
+                        rect(x * side, y * side, side, side);
+                    }
+
                 }
-                else if(matrix[y][x].nexac == false && qanak < 1000)
-                {
-                    fill("green");
-                    rect(x * side, y * side, side, side);
+                else if (matrix[y][x].nexac == false) {
+                    if (qanak < 1000) {
+                        fill("green");
+                        rect(x * side, y * side, side, side);
+                    }
+                    else if (qanak >= 1000) {
+                        fill("white");
+                        rect(x * side, y * side, side, side);
+                    }
+
                 }
-                else if ((matrix[y][x].nexac == true || matrix[y][x].nexac == false) && qanak >= 1000 ) 
-                {
-                    fill("white");
-                    rect(x * side, y * side, side, side);
-                }
-                if (qanak == 2000) 
-                {
+                if (qanak == 2000) {
                     qanak = 0;
                 }
             }
-            else if (matrix[y][x].index == 2) {
-                fill("yellow");
-                rect(x * side, y * side, side, side);
-            }
-            else if (matrix[y][x].index == 3) {
-                fill("red");
-                rect(x * side, y * side, side, side);
-            }
-            else if (matrix[y][x].index == 4) {
-                fill("Aqua");
-                rect(x * side, y * side, side, side);
+                else if (matrix[y][x] == 0) {
+                    fill("#acacac");
+                    rect(x * side, y * side, side, side);
+                }
+                else if (matrix[y][x].index == 2) {
+                    fill("yellow");
+                    rect(x * side, y * side, side, side);
+                }
+                else if (matrix[y][x].index == 3) {
+                    fill("red");
+                    rect(x * side, y * side, side, side);
+
+                }
             }
         }
+        qanak += 50;
     }
-    qanak += 50;
-}
+
