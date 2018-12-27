@@ -86,28 +86,28 @@ function draw() {
             if (matrix[y][x].index == 1) {
 
                 if (matrix[y][x].nexac == true) {
-                    if (qanak < 1000) {
+                    if (qanak < 25) {
                         fill("#7A8613");
                         rect(x * side, y * side, side, side);
                     }
-                    else if (qanak >= 1000) {
+                    else if (qanak >= 25) {
                         fill("white");
                         rect(x * side, y * side, side, side);
                     }
 
                 }
                 else if (matrix[y][x].nexac == false) {
-                    if (qanak < 1000) {
+                    if (qanak < 25) {
                         fill("green");
                         rect(x * side, y * side, side, side);
                     }
-                    else if (qanak >= 1000) {
+                    else if (qanak >= 25) {
                         fill("white");
                         rect(x * side, y * side, side, side);
                     }
 
                 }
-                if (qanak == 2000) {
+                if (qanak == 50) {
                     qanak = 0;
                 }
             }
@@ -126,6 +126,6 @@ function draw() {
                 }
             }
         }
-        qanak += 50;
+        qanak +=2;
     }
 

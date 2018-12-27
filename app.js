@@ -41,24 +41,24 @@ io.on('connection', function (socket) {
             for (var x = 0; x < matrix[y].length; x++) {
                 if (matrix[y][x].index == 1) 
                 {
-                    if (qanak < 1000)
+                    if (qanak < 25)
                     {
                         matrix[y][x].mul(matrix);                    
                     }
-                    if(qanak== 2000)
+                    if(qanak== 50)
                     {
                         qanak = 0;
                     }
                 }
                 else if (matrix[y][x].index == 2) {
-                    if (qanak< 1000)
+                    if (qanak < 25)
                     {
-                        matrix[y][x].eat(matrix, 5);
+                        matrix[y][x].eat(matrix,false);
                     }
-                    else if (qanak >= 1000)
+                    else if (qanak >= 25)
                     {
-                        matrix[y][x].eat(matrix, 10);
-                        if(qanak== 2000)
+                        matrix[y][x].eat(matrix,true);
+                        if(qanak== 50)
                         {
                            qanak = 0;
                         }
@@ -66,14 +66,14 @@ io.on('connection', function (socket) {
                 }
                 else if(matrix[y][x].index == 3)
                 {
-                    if(qanak < 1000)
+                    if(qanak < 25)
                     {    
-                        matrix[y][x].eat(matrix, 3 * qanak + 1);
+                        matrix[y][x].eat(matrix, true);
                     }
-                    else if(qanak >= 1000)
+                    else if(qanak >= 25)
                     {
-                        matrix[y][x].eat(matrix, qanak);
-                        if(qanak == 2000)
+                        matrix[y][x].eat(matrix, false);
+                        if(qanak == 50)
                         {
                            qanak = 0;
                         }
@@ -85,9 +85,9 @@ io.on('connection', function (socket) {
             }
         }
         socket.emit("redraw", matrix);
-        qanak+=100;
+        qanak+=2;
         socket.emit("qanak", qanak);
-        console.log(qanak);
+        // console.log(qanak);
     }, time);
 
     setInterval(function () {
@@ -113,7 +113,7 @@ io.on('connection', function (socket) {
         socket.emit("stats", stat);
     }, 1000);
 });
-var time = frameRate(10);
+var time = frameRate(5);
 
 function frameRate(frameCount) {
     return 1000 / frameCount;

@@ -97,7 +97,7 @@ module.exports = class Predator {
         }
     }
 
-    eat(matrix) {
+    eat(matrix, bool) {
         var newCell = random(this.chooseCell(2, matrix));
 
         if (newCell) {
@@ -113,13 +113,14 @@ module.exports = class Predator {
             this.energy++;
             GrassEater.dead++;
             GrassEater.current--;
-            if (this.energy >= 12) {
+            if (this.energy >= 12 && bool) {
                 this.mul(matrix);
                 this.energy = 3;
             }
             this.acted = true;
         }
-        else {
+        else if(bool) 
+        {
             this.move(matrix);
             this.acted = false;
         }
